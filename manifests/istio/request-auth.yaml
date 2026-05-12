@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"security.istio.io/v1beta1","kind":"RequestAuthentication","metadata":{"annotations":{},"name":"jwt-auth","namespace":"istio-system"},"spec":{"jwtRules":[{"issuer":"http://localhost:8080/realms/ZeroTrustLab","jwksUri":"http://keycloak.iam.svc.cluster.local:8080/realms/ZeroTrustLab/protocol/openid-connect/certs"}]}}
+  name: jwt-auth
+  namespace: istio-system
+spec:
+  jwtRules:
+  - issuer: http://localhost:8080/realms/ZeroTrustLab
+    jwksUri: http://keycloak.iam.svc.cluster.local:8080/realms/ZeroTrustLab/protocol/openid-connect/certs

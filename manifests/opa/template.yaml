@@ -1,0 +1,56 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"templates.gatekeeper.sh/v1beta1","kind":"ConstraintTemplate","metadata":{"annotations":{},"name":"k8sprivilegedcontainer"},"spec":{"crd":{"spec":{"names":{"kind":"K8sPrivilegedContainer"}}},"targets":[{"rego":"package k8sprivilegedcontainer\nviolation[{\"msg\": msg}] {\n  c := input.review.object.spec.containers[_]\n  c.securityContext.privileged\n  msg := sprintf(\"Container '%v' vi pham Zero Trust: Cam chay quyen Privileged!\", [c.name])\n}\n","target":"admission.k8s.gatekeeper.sh"}]}}
+  creationTimestamp: "2026-03-27T12:20:09Z"
+  generation: 1
+  name: k8sprivilegedcontainer
+  resourceVersion: "22252"
+  uid: a59f6c41-e4a0-4aa6-b934-1b9bc35ef63e
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sPrivilegedContainer
+      validation:
+        legacySchema: true
+  targets:
+  - rego: |
+      package k8sprivilegedcontainer
+      violation[{"msg": msg}] {
+        c := input.review.object.spec.containers[_]
+        c.securityContext.privileged
+        msg := sprintf("Container '%v' vi pham Zero Trust: Cam chay quyen Privileged!", [c.name])
+      }
+    target: admission.k8s.gatekeeper.sh
+status:
+  byPod:
+  - id: gatekeeper-audit-9cb57c87b-s59tn
+    observedGeneration: 1
+    operations:
+    - audit
+    - generate
+    - mutation-status
+    - status
+    templateUID: a59f6c41-e4a0-4aa6-b934-1b9bc35ef63e
+  - id: gatekeeper-controller-manager-c597dd77c-b4hxb
+    observedGeneration: 1
+    operations:
+    - mutation-webhook
+    - webhook
+    templateUID: a59f6c41-e4a0-4aa6-b934-1b9bc35ef63e
+  - id: gatekeeper-controller-manager-c597dd77c-gndlc
+    observedGeneration: 1
+    operations:
+    - mutation-webhook
+    - webhook
+    templateUID: a59f6c41-e4a0-4aa6-b934-1b9bc35ef63e
+  - id: gatekeeper-controller-manager-c597dd77c-kzwgm
+    observedGeneration: 1
+    operations:
+    - mutation-webhook
+    - webhook
+    templateUID: a59f6c41-e4a0-4aa6-b934-1b9bc35ef63e
+  created: true

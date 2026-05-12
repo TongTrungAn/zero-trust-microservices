@@ -1,0 +1,11 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"security.istio.io/v1beta1","kind":"PeerAuthentication","metadata":{"annotations":{},"name":"default","namespace":"default"},"spec":{"mtls":{"mode":"STRICT"}}}
+  name: default
+  namespace: default
+spec:
+  mtls:
+    mode: STRICT
